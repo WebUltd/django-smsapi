@@ -8,7 +8,7 @@ SMSAPI_SSL_URL_BACKUP = 'https://ssl2.smsapi.pl/sms.do'
 import urllib, hashlib
 from smsapi.settings import SMSAPI_USERNAME, SMSAPI_PASSWORD
 
-def sendSMS(message, toNumber, fromNumber = '', useSSL = False, flash = 1, encoding = 'windows-1250', details = 0, date = None, datacoding = False, idx = None, single = 0, nounicode = 0, fast = 0, test = 0):
+def sendSMS(message, toNumber, fromNumber = '', useSSL = False, flash = 0, encoding = 'windows-1250', details = 0, date = None, datacoding = False, idx = None, single = 0, nounicode = 0, fast = 0, test = 0):
     
     params = {
         'username': SMSAPI_USERNAME,
@@ -31,8 +31,6 @@ def sendSMS(message, toNumber, fromNumber = '', useSSL = False, flash = 1, encod
         params.update({'datacoding': 'bin'})
 
     params = urllib.urlencode(params)
-
-    print params
 
     if useSSL:
         servers = [SMSAPI_SSL_URL, SMSAPI_SSL_URL_BACKUP]
