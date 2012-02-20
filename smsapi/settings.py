@@ -11,3 +11,8 @@ try:
     SMSAPI_PASSWORD = getattr(settings, 'SMSAPI_PASSWORD')
 except AttributeError:
     raise BaseException('Atrybut SMSAPI_PASSWORD wymagany')
+
+try:
+    SMSAPI_TEST_EMAIL = getattr(settings, 'SMSAPI_TEST_EMAIL')
+except AttributeError:
+    raise BaseException('Atrybut SMSAPI_TEST_EMAIL wymagany')

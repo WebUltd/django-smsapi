@@ -6,9 +6,10 @@ SMSAPI_SSL_URL = 'https://ssl.smsapi.pl/sms.do'
 SMSAPI_SSL_URL_BACKUP = 'https://ssl2.smsapi.pl/sms.do'
 
 import urllib, hashlib
-from smsapi.settings import SMSAPI_USERNAME, SMSAPI_PASSWORD
+from smsapi.settings import SMSAPI_USERNAME, SMSAPI_PASSWORD, SMSAPI_TEST_EMAIL
+from django.core.mail import send_mail
 
-def sendSMS(message, toNumber, fromNumber = '', useSSL = False, flash = 0, encoding = 'windows-1250', details = 0, date = None, datacoding = False, idx = None, single = 0, nounicode = 0, fast = 0, test = 0):
+def sendSMS(message, toNumber, fromNumber = '', useSSL = False, flash = 0, encoding = 'windows-1250', details = 0, date = None, datacoding = False, idx = None, single = 0, nounicode = 0, fast = 0, test = False):
     
     params = {
         'username': SMSAPI_USERNAME,
@@ -18,7 +19,6 @@ def sendSMS(message, toNumber, fromNumber = '', useSSL = False, flash = 0, encod
         'message': message,
         'encoding': encoding,
         'flash': flash,
-        'test': test,
         'details': details,
         'date': date,
         'idx': idx,
@@ -26,6 +26,11 @@ def sendSMS(message, toNumber, fromNumber = '', useSSL = False, flash = 0, encod
         'nounicode': nounicode,
         'fast': 0,
     }
+
+    if test:
+        params.update({'test': 1})
+
+        send_mail('TEST smsapi.pl', message, SMSAPI_TEST_EMAIL, [SMSAPI_TEST_EMAIL])
 
     if datacoding:
         params.update({'datacoding': 'bin'})
