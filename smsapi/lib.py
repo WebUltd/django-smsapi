@@ -9,7 +9,7 @@ import urllib, hashlib
 from smsapi.settings import SMSAPI_USERNAME, SMSAPI_PASSWORD, SMSAPI_TEST_EMAIL
 from django.core.mail import send_mail
 
-def sendSMS(message, toNumber, fromNumber = '', useSSL = False, flash = 0, encoding = 'windows-1250', details = 0, date = None, datacoding = False, idx = None, single = 0, nounicode = 0, fast = 0, test = False):
+def sendSMS(message, toNumber, fromNumber = '', useSSL = False, flash = 0, encoding = 'windows-1250', details = 0, date = None, datacoding = False, idx = None, single = 0, nounicode = 0, fast = 0, test = False, test_email = SMSAPI_TEST_EMAIL):
     
     params = {
         'username': SMSAPI_USERNAME,
@@ -30,7 +30,7 @@ def sendSMS(message, toNumber, fromNumber = '', useSSL = False, flash = 0, encod
     if test:
         params.update({'test': 1})
 
-        send_mail('TEST smsapi.pl', message, SMSAPI_TEST_EMAIL, [SMSAPI_TEST_EMAIL])
+        send_mail('TEST smsapi.pl', message, test_email, [test_email])
 
     if datacoding:
         params.update({'datacoding': 'bin'})
